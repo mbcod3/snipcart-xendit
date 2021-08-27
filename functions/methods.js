@@ -1,28 +1,13 @@
 const fetch = require("node-fetch")
-const sendQuery = require("./send-query")
-
-const SAVE_CODE = `
-mutation($text: String!) {
-  createTodo(data: {text: $text, completed: false }) {
-    _id
-    text
-    completed
-  }
-}
-`
 
 exports.handler = async event => {
   // Get request's token
-  // const { publicToken } = event.queryStringParameters
   const request = JSON.parse(event.body)
-  console.log(request)
-  await sendQuery(SAVE_CODE, { text: `hello ${request.publicToken}` })
 
   // Validate that the request is coming from Snipcart
   const response = await fetch(
     `https://payment.snipcart.com/api/public/custom-payment-gateway/validate?publicToken=${request.publicToken}`
   )
-  // await sendQuery(SAVE_CODE, { text: JSON.stringify(response) })
   // Return a 404 if the request is not from Snipcart
   if (!response.ok)
     return {
