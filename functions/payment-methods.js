@@ -19,8 +19,8 @@ exports.handler = async event => {
   const response = await fetch(
     `https://payment.snipcart.com/api/public/custom-payment-gateway/validate?publicToken=${publicToken}`
   )
-  await sendQuery(SAVE_CODE, { text: publicToken })
-  await sendQuery(SAVE_CODE, { text: JSON.stringify(response) })
+  await sendQuery(SAVE_CODE, { text: `hello ${publicToken}` })
+  // await sendQuery(SAVE_CODE, { text: JSON.stringify(response) })
   // Return a 404 if the request is not from Snipcart
   if (!response.ok)
     return {
