@@ -1,5 +1,5 @@
 const fetch = require("node-fetch")
-const sendQuery = require("./utils/send-query")
+const sendQuery = require("./send-query")
 
 const SAVE_CODE = `
 mutation($text: String!) {
