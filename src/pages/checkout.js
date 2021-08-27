@@ -35,6 +35,7 @@ const Checkout = () => {
         error: null,
       }),
     })
+    console.log(response)
     const body = await response.json()
     console.log(body)
     // window.location.href = body.returnUrl
