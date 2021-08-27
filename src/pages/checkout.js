@@ -3,21 +3,22 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const Checkout = () => {
-const [order, setOrder] = useState(null)
+  const [order, setOrder] = useState(null)
 
   useEffect(() => {
     // Get public token from query string
-const publicToken = new URLSearchParams(window.location.search).get('publicToken')
+    const publicToken = new URLSearchParams(window.location.search).get(
+      "publicToken"
+    )
 
-// Fetch payment session from API
-const response = await fetch(`https://payment.snipcart.com/api/public/custom-payment-gateway/payment-session?publicToken=${publicToken}`);
-
-// Retrieve body as JSON if the request's status code is successful
-if (response.ok) {
-    const paymentSession = await response.json()
-    console.log(paymentSession)
-}
-    
+    // Fetch payment session from API
+    fetch(
+      `https://payment.snipcart.com/api/public/custom-payment-gateway/payment-session?publicToken=${publicToken}`
+    )
+      .then(res => response.ok && res.json())
+      .then(data => {
+        console.log(data)
+      })
   }, [])
   return (
     <Layout>
