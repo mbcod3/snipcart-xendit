@@ -21,10 +21,12 @@ exports.handler = async function(event) {
         paymentSessionId: requestBody.paymentSessionId,
         state: requestBody.state,
         error: requestBody.error,
-        transactionId: paymentId,
+        transactionId: requestBody.transactionId,
         instructions:
           "Your payment will appear on your statement in the coming days",
-        links: { refunds: `<YOUR_REFUND_URL>?transactionId=${paymentId}` },
+        links: {
+          refunds: `<YOUR_REFUND_URL>?transactionId=${requestBody.transactionId}`,
+        },
       }),
     }
   )
