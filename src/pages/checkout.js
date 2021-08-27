@@ -41,7 +41,7 @@ const Checkout = () => {
     //   .catch(err => console.log("err", err))
     // window.location.href = body.returnUrl
     const defO = {
-      paymentSessionId: sessionId.current,
+      paymentSessionId: uuidv4(),
       state: "processed",
       error: null,
       transactionId,
