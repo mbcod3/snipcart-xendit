@@ -1,5 +1,6 @@
 var dotenv = require("dotenv")
 dotenv.config()
+const fetch = require("node-fetch")
 
 exports.handler = async function(event) {
   // Retrieve payment information (depends on how your application is made)
