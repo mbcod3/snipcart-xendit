@@ -24,9 +24,6 @@ exports.handler = async function(event) {
         transactionId: requestBody.transactionId,
         instructions:
           "Your payment will appear on your statement in the coming days",
-        links: {
-          refunds: `<YOUR_REFUND_URL>?transactionId=${requestBody.transactionId}`,
-        },
       }),
     }
   )
