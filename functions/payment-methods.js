@@ -13,7 +13,7 @@ exports.handler = async event => {
   if (!response.ok)
     return {
       statusCode: 404,
-      body: "",
+      body: "not found",
     }
 
   // Create a payment method list

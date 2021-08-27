@@ -10,6 +10,6 @@
   SNIPCART_API_KEY="YOUR SNIPCART API KEY"
 
 [[redirects]]
-  from = "/api/*"
+  from = "/talk/*"
   to = ".netlify/functions/:splat"
   status = 200
