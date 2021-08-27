@@ -37,7 +37,7 @@ exports.handler = async function(event) {
     }
   } else
     return {
-      statusCode: 400,
+      statusCode: 500,
       body: "fuck this",
     }
 }

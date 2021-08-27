@@ -35,9 +35,9 @@ const Checkout = () => {
         error: null,
       }),
     })
-      .then(res => res.ok && res.json())
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
+      .then(res => console.log("res", res))
+      .then(data => console.log("data", data))
+      .catch(err => console.log("err", err))
     // window.location.href = body.returnUrl
   }
   return (
