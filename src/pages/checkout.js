@@ -19,7 +19,6 @@ const Checkout = () => {
       .then(res => res.ok && res.json())
       .then(data => {
         sessionId.current = data.id
-        console.log(data)
         setOrder(data.invoice.amount)
       })
   }, [])
@@ -27,46 +26,19 @@ const Checkout = () => {
   // simulates successfull order
   const paid = () => {
     const transactionId = uuidv4()
-    // fetch("/.netlify/functions/payment", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     paymentSessionId: sessionId.current,
-    //     transactionId,
-    //     state: "processed",
-    //     error: null,
-    //   }),
-    // })
-    //   .then(res => console.log("res", res))
-    //   .then(data => console.log("data", data))
-    //   .catch(err => console.log("err", err))
+    fetch("/.netlify/functions/payment", {
+      method: "POST",
+      body: JSON.stringify({
+        paymentSessionId: sessionId.current,
+        transactionId,
+        state: "processed",
+        error: null,
+      }),
+    })
+      .then(res => console.log("res", res))
+      .then(data => console.log("data", data))
+      .catch(err => console.log("err", err))
     // window.location.href = body.returnUrl
-    const defO = {
-      paymentSessionId: uuidv4(),
-      state: "processed",
-      error: null,
-      transactionId,
-      instructions:
-        "Your payment will appear on your statement in the coming days",
-    }
-    console.log(defO)
-    fetch(
-      "https://payment.snipcart.com/api/private/custom-payment-gateway/payment",
-      {
-        method: "POST",
-        mode: "no-cors",
-
-        headers: {
-          Authorization: `Bearer NDRmZWMyZGMtMzczNi00ZTJlLWJkYTUtNmFhOWU0Y2FhODBiNjM3NjU2ODU3NTg0NDU2ODM1`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(defO),
-      }
-    )
-      .then(res => {
-        console.log(res)
-        return res.json()
-      })
-      .then(data => console.log(data))
   }
   return (
     <Layout>

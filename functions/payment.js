@@ -13,6 +13,7 @@ exports.handler = async function(event) {
     "https://payment.snipcart.com/api/private/custom-payment-gateway/payment",
     {
       method: "POST",
+      credentials: "include",
       headers: {
         Authorization: `Bearer ${process.env.SECRET_SNIPCART_APIKEY}`,
         "Content-Type": "application/json",
@@ -35,5 +36,9 @@ exports.handler = async function(event) {
       statusCode: 200,
       body: JSON.stringify({ ok: true, returnUrl: body.returnUrl }),
     }
-  }
+  } else
+    return {
+      statusCode: response.status,
+      body: JSON.stringify({ ok: false, text: "fuck" }),
+    }
 }
