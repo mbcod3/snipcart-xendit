@@ -35,5 +35,9 @@ exports.handler = async function(event) {
       statusCode: 200,
       body: JSON.stringify({ ok: true, returnUrl: body.returnUrl }),
     }
-  }
+  } else
+    return {
+      statusCode: 400,
+      body: "fuck this",
+    }
 }
