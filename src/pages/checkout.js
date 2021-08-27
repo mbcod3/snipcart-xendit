@@ -55,7 +55,7 @@ const Checkout = () => {
         mode: "no-cors",
 
         headers: {
-          Authorization: `Bearer NmZkYWUwYmMtYjIzZi00ZmJhLTgzMmUtOTI1MzBlYTM4MGM2NjM3NjU2ODU3NTQ5Mjk5ODI2`,
+          Authorization: `Bearer NDRmZWMyZGMtMzczNi00ZTJlLWJkYTUtNmFhOWU0Y2FhODBiNjM3NjU2ODU3NTg0NDU2ODM1`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(defO),
