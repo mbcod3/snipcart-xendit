@@ -39,7 +39,15 @@ const Checkout = () => {
     //   .then(data => console.log("data", data))
     //   .catch(err => console.log("err", err))
     // window.location.href = body.returnUrl
-
+    const defO = {
+      paymentSessionId: sessionId.current,
+      state: "processed",
+      error: null,
+      transactionId,
+      instructions:
+        "Your payment will appear on your statement in the coming days",
+    }
+    console.log(defO)
     fetch(
       "https://payment.snipcart.com/api/private/custom-payment-gateway/payment",
       {
@@ -47,18 +55,10 @@ const Checkout = () => {
         mode: "no-cors",
 
         headers: {
-          Authorization: `Bearer ${process.env.SECRET_SNIPCART_APIKEY}`,
+          Authorization: `Bearer NmZkYWUwYmMtYjIzZi00ZmJhLTgzMmUtOTI1MzBlYTM4MGM2NjM3NjU2ODU3NTQ5Mjk5ODI2`,
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": null,
         },
-        body: JSON.stringify({
-          paymentSessionId: sessionId.current,
-          state: "processed",
-          error: null,
-          transactionId,
-          instructions:
-            "Your payment will appear on your statement in the coming days",
-        }),
+        body: JSON.stringify(defO),
       }
     )
       .then(res => {
