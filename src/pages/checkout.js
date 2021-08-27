@@ -24,9 +24,9 @@ const Checkout = () => {
   }, [])
 
   // simulates successfull order
-  const paid = async () => {
+  const paid = () => {
     const transactionId = uuidv4()
-    const response = await fetch("/.netlify/functions/payment", {
+    fetch("/.netlify/functions/payment", {
       method: "POST",
       body: JSON.stringify({
         paymentSessionId: sessionId.current,
@@ -35,9 +35,9 @@ const Checkout = () => {
         error: null,
       }),
     })
-    console.log(response)
-    const body = await response.json()
-    console.log(body)
+      .then(res => res.ok && res.json())
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
     // window.location.href = body.returnUrl
   }
   return (
