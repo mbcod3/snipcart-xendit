@@ -40,13 +40,16 @@ const Checkout = () => {
     //   .catch(err => console.log("err", err))
     // window.location.href = body.returnUrl
 
-    const res = fetch(
+    fetch(
       "https://payment.snipcart.com/api/private/custom-payment-gateway/payment",
       {
         method: "POST",
+        mode: "no-cors",
+
         headers: {
           Authorization: `Bearer ${process.env.SECRET_SNIPCART_APIKEY}`,
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": null,
         },
         body: JSON.stringify({
           paymentSessionId: sessionId.current,
