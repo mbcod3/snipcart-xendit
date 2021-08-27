@@ -19,6 +19,7 @@ const Checkout = () => {
       .then(res => res.ok && res.json())
       .then(data => {
         sessionId.current = data.id
+        console.log(data)
         setOrder(data.invoice.amount)
       })
   }, [])
