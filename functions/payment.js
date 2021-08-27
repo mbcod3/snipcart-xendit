@@ -1,3 +1,6 @@
+var dotenv = require("dotenv")
+dotenv.config()
+
 exports.handler = async function(event) {
   // Retrieve payment information (depends on how your application is made)
   const requestBody = JSON.parse(event.body)
@@ -10,7 +13,7 @@ exports.handler = async function(event) {
     {
       method: "POST",
       headers: {
-        Authorization: "Bearer <YOUR_SECRET_API_KEY>",
+        Authorization: `Bearer ${process.env.GATSBY_SNIPCART_APIKEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
