@@ -36,7 +36,8 @@ const Checkout = () => {
       }),
     })
     const body = await response.json()
-    window.location.href = body.returnUrl
+    console.log(body)
+    // window.location.href = body.returnUrl
   }
   return (
     <Layout>
