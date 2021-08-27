@@ -13,6 +13,7 @@ exports.handler = async function(event) {
     "https://payment.snipcart.com/api/private/custom-payment-gateway/payment",
     {
       method: "POST",
+      mode: "no-cors",
       headers: {
         Authorization: `Bearer ${process.env.SECRET_SNIPCART_APIKEY}`,
         "Content-Type": "application/json",
