@@ -13,7 +13,7 @@ exports.handler = async function(event) {
     {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${process.env.GATSBY_SNIPCART_APIKEY}`,
+        Authorization: `Bearer ${process.env.SECRET_SNIPCART_APIKEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
