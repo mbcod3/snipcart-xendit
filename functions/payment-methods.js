@@ -13,13 +13,14 @@ mutation($text: String!) {
 
 exports.handler = async event => {
   // Get request's token
-  const { publicToken } = event.queryStringParameters
+  // const { publicToken } = event.queryStringParameters
+  const request = JSON.parse(event.body)
   console.log(publicToken)
   // Validate that the request is coming from Snipcart
   const response = await fetch(
-    `https://payment.snipcart.com/api/public/custom-payment-gateway/validate?publicToken=${publicToken}`
+    `https://payment.snipcart.com/api/public/custom-payment-gateway/validate?publicToken=${request.PublicToken}`
   )
-  await sendQuery(SAVE_CODE, { text: `hello ${publicToken}` })
+  await sendQuery(SAVE_CODE, { text: `hello ${request.PublicToken}` })
   // await sendQuery(SAVE_CODE, { text: JSON.stringify(response) })
   // Return a 404 if the request is not from Snipcart
   if (!response.ok)
