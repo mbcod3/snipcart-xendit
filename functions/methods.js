@@ -20,7 +20,7 @@ exports.handler = async event => {
     {
       id: "xendit",
       name: "Xendit",
-      iconUrl: "https://snipcart-xendit.netlify.app/static/xendit-logo.png",
+      iconUrl: "https://snipcart-xendit.netlify.app/xendit-logo.png",
       checkoutUrl: "https://snipcart-xendit.netlify.app/checkout",
     },
   ]
