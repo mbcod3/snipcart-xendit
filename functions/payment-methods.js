@@ -1,12 +1,12 @@
 const fetch = require("node-fetch")
 
 exports.handler = async event => {
-  // Get request's body
-  const request = JSON.parse(event.body)
+  // Get request's token
+  const { publicToken } = event.queryStringParameters
 
   // Validate that the request is coming from Snipcart
   const response = await fetch(
-    `https://payment.snipcart.com/api/public/custom-payment-gateway/validate?publicToken=${request.PublicToken}`
+    `https://payment.snipcart.com/api/public/custom-payment-gateway/validate?publicToken=${publicToken}`
   )
 
   // Return a 404 if the request is not from Snipcart
