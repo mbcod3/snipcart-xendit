@@ -23,7 +23,7 @@ const Checkout = () => {
       })
   }, [])
 
-  // simulates successfull order
+  // simulates successful order
   const paid = () => {
     const transactionId = uuidv4()
     fetch("/.netlify/functions/payment", {
@@ -36,9 +36,8 @@ const Checkout = () => {
       }),
     })
       .then(res => res.json())
-      .then(data => console.log("data", data))
+      .then(body => (window.location.href = body.returnUrl))
       .catch(err => console.log("err", err))
-    // window.location.href = body.returnUrl
   }
   return (
     <Layout>
