@@ -21,10 +21,10 @@ const Checkout = () => {
       `https://payment.snipcart.com/api/public/custom-payment-gateway/payment-session?publicToken=${publicToken}`
     )
       .then(res => {
+        setLoading(false)
         if (res.ok) {
           return res.json()
         } else {
-          setLoading(false)
           throw "not snipcart checkout"
         }
       })
