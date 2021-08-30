@@ -9,8 +9,7 @@ exports.handler = async function(event) {
   // this key should never be on client side code. this is serverless function so its safe here
   // Dont forget to change this to yours
   const x = new xendit({
-    secretKey:
-      "xnd_development_9JnPamiDbqYTrvXBfTqna12zhHFfBP2WvpNEOmilKzrmEFqNdjxzRGTvtvfd7N",
+    secretKey: process.env.SECRET_XENDIT_APIKEY,
   })
 
   // Payment processing with xendit

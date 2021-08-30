@@ -6,11 +6,11 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const Checkout = () => {
-  const [price, setPrice] = useState(100)
-  const [loading, setLoading] = useState(false)
+  const [price, setPrice] = useState(price)
+  const [loading, setLoading] = useState(true)
   const [btnDisabled, setBtnDisabled] = useState(false)
   const sessionId = React.useRef(null)
-  sessionId.current = true
+
   useEffect(() => {
     // Get snipcart public token from query string
     const publicToken = new URLSearchParams(window.location.search).get(
