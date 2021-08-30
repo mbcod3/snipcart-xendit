@@ -12,17 +12,17 @@ exports.handler = async function(event) {
 
   // Payment processing with xendit
   const resp = await fetch("https://api.xendit.co/credit_card_charges", {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      Authorization: `Bearer ${xenditSecretKey}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
     body: JSON.stringify({
       external_id: requestBody.transactionId,
       token_id: requestBody.xenditTokenId,
       amount: requestBody.amount,
     }),
-    headers: {
-      Authorization: `Bearer ${xenditSecretKey}`,
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    method: "POST",
-    credentials: "include",
   })
     .then(res => res.json())
     .then(data => data)
