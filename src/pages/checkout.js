@@ -8,7 +8,6 @@ import SEO from "../components/seo"
 const Checkout = () => {
   const [price, setPrice] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [btnDisabled, setBtnDisabled] = useState(false)
   const sessionId = React.useRef(null)
 
   useEffect(() => {
@@ -56,6 +55,7 @@ const Checkout = () => {
 
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE)
   const [error, setError] = useState("")
+  const [btnDisabled, setBtnDisabled] = useState(false)
 
   const updateFieldValue = field => event => {
     dispatch({
@@ -81,21 +81,25 @@ const Checkout = () => {
     const number = cardValidator.number(state.card)
     if (!number.isValid) {
       setError("Card number not valid")
+      setBtnDisabled(false)
       return undefined
     }
     const month = cardValidator.expirationMonth(state.month)
     if (!month.isValid) {
       setError("Card expiry month is not valid")
+      setBtnDisabled(false)
       return undefined
     }
     const year = cardValidator.expirationYear(state.year)
     if (!year.isValid) {
       setError("Card expiry year is not valid")
+      setBtnDisabled(false)
       return undefined
     }
     const cvv = cardValidator.cvv(state.cvv)
     if (!cvv.isValid) {
       setError("Card security code is not valid")
+      setBtnDisabled(false)
       return undefined
     }
 
@@ -103,6 +107,7 @@ const Checkout = () => {
     const xenditResponse = (err, res) => {
       // this error might not be relevant to users
       // if this is showing error it might be you messed up somewhere before this step
+      console.log(sessionId.current)
       if (err) {
         setError(err.message)
         setBtnDisabled(false)

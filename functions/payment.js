@@ -57,6 +57,7 @@ exports.handler = async function(event) {
       statucCode: 200,
       body: JSON.stringify({
         failure_reason: xenditResp.failure_reason,
+        requestBody,
         status: xenditResp.status,
       }),
     }
