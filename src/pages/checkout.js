@@ -124,7 +124,7 @@ const Checkout = () => {
               transactionId,
               state: "processed",
               error: null,
-              xenditTokenId: transactionId,
+              xenditTokenId: token,
               amount: price,
             }),
           })
