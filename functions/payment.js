@@ -18,7 +18,7 @@ exports.handler = async function(event) {
   const cardSpecificOptions = {}
   const card = new Card(cardSpecificOptions)
 
-  await card.createCharge({
+  const xenditResp = await card.createCharge({
     externalID: requestBody.transactionId,
     tokenID: requestBody.xenditTokenId,
     amount: requestBody.amount,
@@ -51,6 +51,11 @@ exports.handler = async function(event) {
     return {
       statusCode: 200,
       body: JSON.stringify({ ok: true, returnUrl: body.returnUrl }),
+    }
+  } else {
+    return {
+      statusCode: 300,
+      body: JSON.stringify({ ok: true, xenditResp }),
     }
   }
 }

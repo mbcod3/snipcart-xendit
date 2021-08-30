@@ -118,10 +118,6 @@ const Checkout = () => {
 
           const transactionId = uuidv4()
           fetch("/.netlify/functions/payment", {
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
             method: "POST",
             body: JSON.stringify({
               paymentSessionId: sessionId.current,
@@ -132,7 +128,7 @@ const Checkout = () => {
               amount: price,
             }),
           })
-            .then(res => res.json())
+            .then(res => res.text())
             .then(body => console.log(body))
             .catch(err => console.log("err", err))
         } else if (res.status === "IN_REVIEW") {
