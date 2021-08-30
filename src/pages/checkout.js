@@ -112,7 +112,7 @@ const Checkout = () => {
         if (res.status === "VERIFIED") {
           // Get the token ID:
           const token = res.id
-
+          console.log(token)
           // send token id from xendit and snipcart info to serverless function
 
           const transactionId = uuidv4()
