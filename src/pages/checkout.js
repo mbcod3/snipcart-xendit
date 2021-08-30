@@ -118,6 +118,10 @@ const Checkout = () => {
 
           const transactionId = uuidv4()
           fetch("/.netlify/functions/payment", {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
             method: "POST",
             body: JSON.stringify({
               paymentSessionId: sessionId.current,
