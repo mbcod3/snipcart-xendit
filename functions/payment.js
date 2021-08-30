@@ -23,38 +23,42 @@ exports.handler = async function(event) {
     amount: requestBody.amount,
   })
 
-  // Confirm payment with the snipcart endpoint
-  const response = await fetch(
-    "https://payment.snipcart.com/api/private/custom-payment-gateway/payment",
-    {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        Authorization: `Bearer ${process.env.SECRET_SNIPCART_APIKEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        paymentSessionId: requestBody.paymentSessionId,
-        state: requestBody.state,
-        error: requestBody.error,
-        transactionId: requestBody.transactionId,
-        instructions:
-          "Your payment will appear on your statement in the coming days",
-      }),
-    }
-  )
+  if (xenditResp.status === "AUTHORIZED") {
+    const response = await fetch(
+      "https://payment.snipcart.com/api/private/custom-payment-gateway/payment",
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          Authorization: `Bearer ${process.env.SECRET_SNIPCART_APIKEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          paymentSessionId: requestBody.paymentSessionId,
+          state: requestBody.state,
+          error: requestBody.error,
+          transactionId: requestBody.transactionId,
+          instructions:
+            "Your payment will appear on your statement in the coming days",
+        }),
+      }
+    )
 
-  if (response.ok) {
-    const body = await response.json()
+    if (response.ok) {
+      const body = await response.json()
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ ok: true, returnUrl: body.returnUrl }),
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ ok: true, returnUrl: body.returnUrl }),
+      }
     }
   } else {
     return {
-      statusCode: 300,
-      body: JSON.stringify({ ok: true, xenditResp }),
+      statucCode: 200,
+      body: JSON.stringify({
+        failure_reason: xenditResp.failure_reason,
+        status: xenditResp.status,
+      }),
     }
   }
 }

@@ -6,7 +6,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const Checkout = () => {
-  const [price, setPrice] = useState(price)
+  const [price, setPrice] = useState(null)
   const [loading, setLoading] = useState(true)
   const [btnDisabled, setBtnDisabled] = useState(false)
   const sessionId = React.useRef(null)
@@ -103,7 +103,6 @@ const Checkout = () => {
     const xenditResponse = (err, res) => {
       // this error might not be relevant to users
       // if this is showing error it might be you messed up somewhere before this step
-      console.log(res)
       if (err) {
         setError(err.message)
         setBtnDisabled(false)
@@ -113,7 +112,6 @@ const Checkout = () => {
         if (res.status === "VERIFIED") {
           // Get the token ID:
           const token = res.id
-          console.log(token)
           // send token id from xendit and snipcart info to serverless function
 
           const transactionId = uuidv4()
@@ -129,7 +127,9 @@ const Checkout = () => {
             }),
           })
             .then(res => res.text())
-            .then(body => console.log(body))
+            .then(body => {
+              if (body.returnUrl) window.location.href = body.returnUrl
+            })
             .catch(err => console.log("err", err))
         } else if (res.status === "IN_REVIEW") {
           // FIX THIS
