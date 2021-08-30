@@ -7,25 +7,36 @@ exports.handler = async function(event) {
   const requestBody = JSON.parse(event.body)
   // this key should never be on client side code. this is serverless function so its safe here
   // Dont forget to change this to yours
-  const xenditSecretKey =
-    "xnd_development_9JnPamiDbqYTrvXBfTqna12zhHFfBP2WvpNEOmilKzrmEFqNdjxzRGTvtvfd7N"
+  const x = new require("xendit-node")({
+    secretKey:
+      "xnd_development_9JnPamiDbqYTrvXBfTqna12zhHFfBP2WvpNEOmilKzrmEFqNdjxzRGTvtvfd7N",
+  })
 
   // Payment processing with xendit
-  const resp = await fetch("https://api.xendit.co/credit_card_charges", {
-    method: "POST",
-    credentials: "include",
-    headers: {
-      Authorization: `Bearer ${xenditSecretKey}`,
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: JSON.stringify({
-      external_id: requestBody.transactionId,
-      token_id: requestBody.xenditTokenId,
-      amount: requestBody.amount,
-    }),
+  const { Card } = x
+  const cardSpecificOptions = {}
+  const card = new Card(cardSpecificOptions)
+
+  const resp = await card.createCharge({
+    externalID: requestBody.transactionId,
+    tokenID: requestBody.xenditTokenId,
+    external_id: requestBody.transactionId,
+    token_id: requestBody.xenditTokenId,
+    amount: requestBody.amount,
   })
-    .then(res => res.json())
-    .then(data => data)
+
+  // const resp = await fetch("https://api.xendit.co/credit_card_charges", {
+  //   method: "POST",
+  //   credentials: "include",
+  //   headers: {
+  //     Authorization: `Bearer ${xenditSecretKey}`,
+  //     "Content-Type": "application/x-www-form-urlencoded",
+  //   },
+  //   body: JSON.stringify({
+  //   }),
+  // })
+  //   .then(res => res.json())
+  //   .then(data => data)
 
   return {
     statusCode: 200,
