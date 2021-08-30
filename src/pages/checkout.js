@@ -128,7 +128,8 @@ const Checkout = () => {
           })
             .then(res => res.json())
             .then(body => {
-              if (body.returnUrl) window.location.href = body.returnUrl
+              console.log(body)
+              // if (body.returnUrl) window.location.href = body.returnUrl
             })
             .catch(err => console.log("err", err))
         } else if (res.status === "IN_REVIEW") {
