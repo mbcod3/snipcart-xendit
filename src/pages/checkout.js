@@ -10,13 +10,12 @@ const Checkout = () => {
   const [loading, setLoading] = useState(false)
   const [btnDisabled, setBtnDisabled] = useState(false)
   const sessionId = React.useRef(null)
-
+  sessionId.current = true
   useEffect(() => {
-    // Get public token from query string
+    // Get snipcart public token from query string
     const publicToken = new URLSearchParams(window.location.search).get(
       "publicToken"
     )
-
     // Fetch payment session from API
     fetch(
       `https://payment.snipcart.com/api/public/custom-payment-gateway/payment-session?publicToken=${publicToken}`
@@ -106,6 +105,7 @@ const Checkout = () => {
       // if this is showing error it might be you messed up somewhere before this step
       if (err) {
         setError(err.message)
+        setBtnDisabled(false)
         return undefined
       }
       if (res) {
@@ -128,7 +128,7 @@ const Checkout = () => {
             }),
           })
             .then(res => res.json())
-            .then(body => (window.location.href = body.returnUrl))
+            .then(body => console.log(body))
             .catch(err => console.log("err", err))
         } else if (res.status === "IN_REVIEW") {
           // FIX THIS
@@ -182,7 +182,7 @@ const Checkout = () => {
                   margin: "0 auto 30px",
                 }}
               >
-                <label for="name">Enter cardholder name</label>
+                <label htmlFor="name">Enter cardholder name</label>
                 <input
                   type="text"
                   name="name"
@@ -190,7 +190,7 @@ const Checkout = () => {
                   onChange={updateFieldValue("name")}
                   required
                 />
-                <label for="card">Enter Credit Card Number</label>
+                <label htmlFor="card">Enter Credit Card Number</label>
                 <input
                   type="number"
                   name="card"
@@ -198,7 +198,7 @@ const Checkout = () => {
                   onChange={updateFieldValue("card")}
                   required
                 />
-                <label for="month">Enter Card Expiry Month</label>
+                <label htmlFor="month">Enter Card Expiry Month</label>
 
                 <input
                   type="number"
@@ -207,7 +207,7 @@ const Checkout = () => {
                   onChange={updateFieldValue("month")}
                   required
                 />
-                <label for="year">Enter Card Expiry Year</label>
+                <label htmlFor="year">Enter Card Expiry Year</label>
 
                 <input
                   type="number"
@@ -217,7 +217,7 @@ const Checkout = () => {
                   required
                 />
 
-                <label for="cvv">Enter Card cvv</label>
+                <label htmlFor="cvv">Enter Card cvv</label>
                 <input
                   type="number"
                   name="cvv"
