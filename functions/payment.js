@@ -18,7 +18,7 @@ exports.handler = async function(event) {
       amount: requestBody.amount,
     }),
     headers: {
-      Authorization: `Basic ${xenditSecretKey}`,
+      Authorization: `Bearer ${xenditSecretKey}`,
       "Content-Type": "application/x-www-form-urlencoded",
     },
     method: "POST",
