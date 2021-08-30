@@ -103,6 +103,7 @@ const Checkout = () => {
     const xenditResponse = (err, res) => {
       // this error might not be relevant to users
       // if this is showing error it might be you messed up somewhere before this step
+      console.log(res)
       if (err) {
         setError(err.message)
         setBtnDisabled(false)
@@ -123,7 +124,7 @@ const Checkout = () => {
               transactionId,
               state: "processed",
               error: null,
-              xenditTokenId: token,
+              xenditTokenId: transactionId,
               amount: price,
             }),
           })
