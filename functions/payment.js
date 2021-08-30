@@ -1,13 +1,14 @@
 var dotenv = require("dotenv")
 dotenv.config()
 const fetch = require("node-fetch")
+const xendit = require("xendit-node")
 
 exports.handler = async function(event) {
   // Retrieve payment information (depends on how your application is made)
   const requestBody = JSON.parse(event.body)
   // this key should never be on client side code. this is serverless function so its safe here
   // Dont forget to change this to yours
-  const x = new require("xendit-node")({
+  const x = new xendit({
     secretKey:
       "xnd_development_9JnPamiDbqYTrvXBfTqna12zhHFfBP2WvpNEOmilKzrmEFqNdjxzRGTvtvfd7N",
   })
