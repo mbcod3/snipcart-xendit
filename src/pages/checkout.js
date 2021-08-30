@@ -107,7 +107,6 @@ const Checkout = () => {
     const xenditResponse = (err, res) => {
       // this error might not be relevant to users
       // if this is showing error it might be you messed up somewhere before this step
-      console.log(sessionId.current)
       if (err) {
         setError(err.message)
         setBtnDisabled(false)
@@ -133,8 +132,7 @@ const Checkout = () => {
           })
             .then(res => res.json())
             .then(body => {
-              console.log(body)
-              // if (body.returnUrl) window.location.href = body.returnUrl
+              if (body.returnUrl) window.location.href = body.returnUrl
             })
             .catch(err => console.log("err", err))
         } else if (res.status === "IN_REVIEW") {

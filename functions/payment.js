@@ -23,7 +23,7 @@ exports.handler = async function(event) {
     amount: requestBody.amount,
   })
 
-  if (xenditResp.status === "AUTHORIZED") {
+  if (xenditResp.status === "CAPTURED") {
     const response = await fetch(
       "https://payment.snipcart.com/api/private/custom-payment-gateway/payment",
       {
@@ -57,7 +57,6 @@ exports.handler = async function(event) {
       statucCode: 200,
       body: JSON.stringify({
         failure_reason: xenditResp.failure_reason,
-        requestBody,
         status: xenditResp.status,
       }),
     }
