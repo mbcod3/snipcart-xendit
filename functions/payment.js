@@ -22,13 +22,14 @@ exports.handler = async function(event) {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     method: "POST",
+    credentials: "include",
   })
     .then(res => res.json())
     .then(data => data)
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ ok: true, resp }),
+    body: JSON.stringify({ ok: true, resp, requestBody }),
   }
   // Confirm payment with the /payment endpoint
   // const response = await fetch(
