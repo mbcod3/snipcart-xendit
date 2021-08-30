@@ -126,7 +126,7 @@ const Checkout = () => {
               amount: price,
             }),
           })
-            .then(res => res.text())
+            .then(res => res.json())
             .then(body => {
               if (body.returnUrl) window.location.href = body.returnUrl
             })
