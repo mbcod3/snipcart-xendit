@@ -1,3 +1,4 @@
+import { navigate } from "@reach/router"
 import cardValidator from "card-validator"
 import React, { useEffect, useReducer, useState } from "react"
 import { Helmet } from "react-helmet"
@@ -132,7 +133,7 @@ const Checkout = () => {
           })
             .then(res => res.json())
             .then(body => {
-              if (body.returnUrl) window.location.href = body.returnUrl
+              if (body.returnUrl) navigate(body.returnUrl)
             })
             .catch(err => console.log("err", err))
         } else if (res.status === "IN_REVIEW") {
