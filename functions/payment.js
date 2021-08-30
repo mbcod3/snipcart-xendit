@@ -18,58 +18,39 @@ exports.handler = async function(event) {
   const cardSpecificOptions = {}
   const card = new Card(cardSpecificOptions)
 
-  const resp = await card.createCharge({
+  await card.createCharge({
     externalID: requestBody.transactionId,
     tokenID: requestBody.xenditTokenId,
-    external_id: requestBody.transactionId,
-    token_id: requestBody.xenditTokenId,
     amount: requestBody.amount,
   })
 
-  // const resp = await fetch("https://api.xendit.co/credit_card_charges", {
-  //   method: "POST",
-  //   credentials: "include",
-  //   headers: {
-  //     Authorization: `Bearer ${xenditSecretKey}`,
-  //     "Content-Type": "application/x-www-form-urlencoded",
-  //   },
-  //   body: JSON.stringify({
-  //   }),
-  // })
-  //   .then(res => res.json())
-  //   .then(data => data)
+  // Confirm payment with the snipcart endpoint
+  const response = await fetch(
+    "https://payment.snipcart.com/api/private/custom-payment-gateway/payment",
+    {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        Authorization: `Bearer ${process.env.SECRET_SNIPCART_APIKEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        paymentSessionId: requestBody.paymentSessionId,
+        state: requestBody.state,
+        error: requestBody.error,
+        transactionId: requestBody.transactionId,
+        instructions:
+          "Your payment will appear on your statement in the coming days",
+      }),
+    }
+  )
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ ok: true, resp, requestBody }),
+  if (response.ok) {
+    const body = await response.json()
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ ok: true, returnUrl: body.returnUrl }),
+    }
   }
-  // Confirm payment with the /payment endpoint
-  // const response = await fetch(
-  //   "https://payment.snipcart.com/api/private/custom-payment-gateway/payment",
-  //   {
-  //     method: "POST",
-  //     credentials: "include",
-  //     headers: {
-  //       Authorization: `Bearer ${process.env.SECRET_SNIPCART_APIKEY}`,
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       paymentSessionId: requestBody.paymentSessionId,
-  //       state: requestBody.state,
-  //       error: requestBody.error,
-  //       transactionId: requestBody.transactionId,
-  //       instructions:
-  //         "Your payment will appear on your statement in the coming days",
-  //     }),
-  //   }
-  // )
-
-  // if (response.ok) {
-  //   const body = await response.json()
-
-  //   return {
-  //     statusCode: 200,
-  //     body: JSON.stringify({ ok: true, returnUrl: body.returnUrl, resp }),
-  //   }
-  // }
 }
